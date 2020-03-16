@@ -1,0 +1,16 @@
+---
+- hosts: all
+#first put server's public key on pi's so we can authenticate connection
+  tasks:
+    - authorized_key:
+        user: ehaynes
+        state: present
+        key: "{{ lookup('file', '/home/ehaynes/.ssh/id_rsa.pub') }}"    
+#allow passwordless sudo for pi account   
+    - lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+      become: yes

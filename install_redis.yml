@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: install redis container systemd unit file
+      template: 
+        src=redis.service.j2 
+        dest=/etc/systemd/system/redis.service
+    - name: start redis container
+      systemd: 
+        state=started
+        enabled=yes 
+        name=redis 
+        daemon_reload=yes
