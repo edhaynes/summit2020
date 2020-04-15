@@ -1,0 +1,18 @@
+#!/bin/bash
+
+n=81
+
+while :
+do
+        sleep .5
+        output=$( redis-cli -h 10.0.100.191 get heartbeat3 )
+        echo "monitoring heartbeat for failure"
+        if [ $output -eq $n ]; then
+           printf "iot app 3 unresponsive!! take over \n"
+           break
+        fi
+        n=$output
+done
+
+redis-cli -h 10.0.100.191 set iot4_color green
+

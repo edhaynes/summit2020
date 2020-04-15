@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: stop all containers
+      shell: podman stop $(podman ps -aq) 2> /dev/null
+      ignore_errors: yes
+    - name: remove all containers
+      shell: podman rm $(podman ps -aq)

@@ -1,0 +1,8 @@
+[Unit]
+Description=Redis Podman container
+Wants=syslog.service
+[Service]
+Restart=no
+ExecStart=/usr/bin/podman run -d -h iot{{ ansible_hostname }} --privileged quay.io/ehaynes/rhel_blinkstick:recurse /home/lights
+[Install]
+WantedBy=multi-user.target

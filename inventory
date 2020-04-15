@@ -1,1 +1,15 @@
-192.168.122.202
+[gateways]
+gateway1
+[master]
+iot0
+[workers]
+iot1
+iot2
+iot3
+iot4
+[pis:children]
+master
+workers
+[pis:vars]
+ansible_ssh_user=ehaynes
+

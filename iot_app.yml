@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: copy systemd service file to targets
+      template:
+        src: iot_app.service.j2
+        dest: /etc/systemd/system/iot_app.service
+        mode: '0644' 
+    - name: Enable iot app, restart systemd
+      systemd:
+        state: started
+        daemon_reload: yes
+        name: iot_app
+        enabled: yes
